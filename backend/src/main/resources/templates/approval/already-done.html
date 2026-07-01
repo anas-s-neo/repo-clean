@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Already Processed</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #fff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); max-width: 480px; width: 100%; padding: 40px 32px; text-align: center; }
+        .icon { font-size: 48px; margin-bottom: 16px; }
+        h1 { font-size: 24px; color: #0ea5e9; margin-bottom: 12px; }
+        .message { font-size: 16px; color: #334155; }
+        .btn { display: inline-block; margin-top: 24px; padding: 12px 24px; border-radius: 8px; font-weight: 600; background: #3b82f6; color: white; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="icon">ℹ️</div>
+    <h1>Already Processed</h1>
+    <p class="message" th:text="${message}"></p>
+    <p th:if="${branchName}">Branch: <code th:text="${branchName}"></code></p>
+    <a href="/" class="btn">Go to Dashboard</a>
+</div>
+</body>
+</html>

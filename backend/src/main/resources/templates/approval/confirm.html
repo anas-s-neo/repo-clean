@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Confirm ' + ${action}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #fff; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); max-width: 540px; width: 100%; padding: 40px 32px; }
+        h1 { font-size: 22px; margin-bottom: 16px; }
+        .branch-info { font-family: 'SF Mono', monospace; font-size: 14px; background: #f8fafc; padding: 12px; border-radius: 8px; margin-bottom: 24px; }
+        .repo { color: #64748b; font-size: 14px; }
+        .btn-group { display: flex; gap: 12px; margin-top: 24px; }
+        .btn { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; border: none; cursor: pointer; text-decoration: none; text-align: center; display: inline-block; }
+        .btn-primary { background: #dc2626; color: white; }
+        .btn-primary.green { background: #16a34a; }
+        .btn-secondary { background: #e2e8f0; color: #334155; }
+        .cancel { margin-left: 12px; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1 th:text="'Confirm ' + ${action} + ' Branch'"></h1>
+    <p th:text="'You are about to ' + (${isApprove} ? 'approve deletion of' : 'keep') + ' the following branch in ' + ${repoFullName}"></p>
+    <div class="branch-info">
+        <div><strong>Branch:</strong> <code th:text="${branch.branchName}"></code></div>
+        <div class="repo" th:text="${repoFullName}"></div>
+        <div th:if="${isApprove}">This branch will be scheduled for deletion in <strong
+                th:text="${deletionDelayHours}"></strong> hours.
+        </div>
+        <div th:unless="${isApprove}">The branch will be kept and no further action will be taken.</div>
+    </div>
+    <form method="post" action="/approve/confirm" style="display:inline;">
+        <input type="hidden" name="token" th:value="${token}"/>
+        <input type="hidden" name="action" th:value="${action}"/>
+        <div class="btn-group">
+            <button class="btn" th:classappend="${isApprove} ? 'btn-primary' : 'btn-primary green'" type="submit"
+                    th:text="'Yes, ' + (${isApprove} ? 'Delete' : 'Keep') + ' Branch'"></button>
+            <a href="/" class="btn btn-secondary cancel">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
